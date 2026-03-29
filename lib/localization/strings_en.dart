@@ -96,4 +96,88 @@ const Map<String, String> enStrings = {
   "servicesTagFast": "Fast",
   "servicesTagTrusted": "Trusted",
   "servicesTagSupport": "Support",
+  "terms_hero_subtitle": "Please read these Terms and Conditions carefully before using Jaycom4. Your use of the app means that you agree to be bound by these Terms and Conditions.",
+  "terms_sections_count_suffix": "clauses",
+  "terms_toc_title": "Table of Contents",
+  "terms_reading_progress": "Reading progress",
+  "terms_clause_prefix": "Clause",
+  "terms_last_updated": "Last updated: March 2026",
+
+  "terms_sec_clients_title": "Clients",
+  "terms_sec_clients_content": "Any person who wishes to benefit from the products and services offered by the service provider.",
+
+  "terms_sec_service_title": "Service",
+  "terms_sec_service_content": "The service means that Jaycom4 acts only as an intermediary between the client and the service provider, and its role is limited to connecting both parties by providing a means of communication and location coordinates.",
+
+  "terms_sec_overview_title": "Overview",
+  "terms_sec_overview_content": "Jaycom4 is a cloud-based system primarily designed to connect the client with the service provider through the application. When the client searches for a provider, the app searches according to the request and sends it to the provider through the app.",
+
+  "terms_sec_registration_title": "Registration Data and Account Security",
+  "terms_sec_registration_b1": "By registering for the app services, the client agrees that the submitted information is accurate, complete, and properly maintained.",
+  "terms_sec_registration_b2": "The client must keep their username and password confidential.",
+  "terms_sec_registration_b3": "The client accepts all risks arising from unauthorized access to registration data.",
+  "terms_sec_registration_b4": "The client acknowledges that they are solely responsible for maintaining the confidentiality of their password.",
+  "terms_sec_registration_b5": "The client must immediately notify Jaycom4 of any unauthorized use of their account.",
+  "terms_sec_registration_b6": "Account access must be performed by one person only.",
+
+  "terms_sec_data_title": "How the App Uses Your Personal Data",
+  "terms_sec_data_content": "The app does not collect any personal data except when the client uses the service. Such data includes the client's name, mobile number, and address.",
+  "terms_sec_data_b1": "To contact the client regarding their experience with the app.",
+  "terms_sec_data_b2": "To register the client in the app, verify the account, and link it to the phone number.",
+  "terms_sec_data_b3": "To send promotional offers from time to time.",
+  "terms_sec_data_b4": "To improve the app according to the client's usage and experience.",
+  "terms_sec_data_b5": "The app is committed to protecting privacy and not sharing data with any third party.",
+
+  "terms_sec_mechanism_title": "How the App Works",
+  "terms_sec_mechanism_b1": "The client requests a specific service from the services page in the app.",
+  "terms_sec_mechanism_b2": "After the request is submitted, the app searches for the nearest available service provider in the relevant area.",
+  "terms_sec_mechanism_b3": "Once the provider accepts the request, communication channels are made available between both parties.",
+  "terms_sec_mechanism_b4": "If the request is rejected, it is redirected to another nearby provider.",
+  "terms_sec_mechanism_b5": "If no agreement is reached, the client may submit another request.",
+
+  "terms_sec_payment_title": "Payment Methods and Procedures",
+  "terms_sec_payment_content": "Client requests and services provided through Jaycom4 are processed after payment of the pre-determined request value.",
+  "terms_sec_payment_b1": "The client may be asked to provide payment-related data such as name, address, and bank account details.",
+  "terms_sec_payment_b2": "The client must ensure the payment data is accurate and updated.",
+  "terms_sec_payment_b3": "Payment methods may involve an external payment collection provider.",
+  "terms_sec_payment_b4": "Jaycom4 is not responsible for fees resulting from the use of third parties.",
+  "terms_sec_payment_b5": "The client authorizes Jaycom4 to store payment method information and collect fees.",
+  "terms_sec_payment_b6": "The client is solely responsible for the accuracy of payment-related data.",
+  "terms_sec_payment_b7": "All prices are subject to VAT in accordance with the laws of Saudi Arabia.",
+
+  "terms_sec_control_title": "Control Over App Usage",
+  "terms_sec_control_content": "Jaycom4 has the absolute right, without providing reasons, to refuse or suspend any user's access to the app services.",
+
+  "terms_sec_modifications_title": "Modifications to the App and Terms",
+  "terms_sec_modifications_content": "Jaycom4 may at any time make modifications or additions to the app or to these Terms and Conditions.",
+  "terms_sec_modifications_b1": "It is the user's responsibility to review updates regularly.",
+  "terms_sec_modifications_b2": "Continuing to use the app after updates are published constitutes implied acceptance.",
+  "terms_sec_modifications_b3": "The changes become effective as soon as they are published through the app.",
+
+  "terms_sec_notifications_title": "Notifications and Communications",
+  "terms_sec_notifications_content": "The app relies on the mobile number provided during account creation to send notifications and notices.",
+  "terms_sec_notifications_b1": "A user is deemed to have received a notice once it is sent through the app.",
+  "terms_sec_notifications_b2": "Communications directed to Jaycom4 are effective via the following email:",
+  "terms_sec_notifications_b3": "4Jaicom@gmail.com",
+
+  "terms_sec_ip_title": "Intellectual Property Rights",
+  "terms_sec_ip_content": "Accessing the app does not transfer any intellectual property rights related to data, information, marks, or designs.",
+  "terms_sec_ip_b1": "All trademarks, logos, and intellectual property are the exclusive property of Jaycom4.",
+  "terms_sec_ip_b2": "The client undertakes not to use or publish such intellectual property without prior written approval.",
+
+  "terms_sec_liability_title": "Limitation of Liability",
+  "terms_sec_liability_content": "Jaycom4 provides no express or implied warranties regarding the services, and the services are provided as is.",
+  "terms_sec_liability_b1": "Jaycom4 does not guarantee the accuracy, content, or timing of the services.",
+  "terms_sec_liability_b2": "Jaycom4 is not liable for direct or indirect damages resulting from the use of the service.",
+  "terms_sec_liability_b3": "The app does not guarantee refund of amounts paid to the service provider.",
+  "terms_sec_liability_b4": "The app only retains customer information necessary for providing the service.",
+
+  "terms_sec_severability_title": "Invalidity of One or More Provisions",
+  "terms_sec_severability_content": "The invalidity of any provision does not affect the validity of the remaining provisions. Any invalid provision shall be removed while the rest remain in force.",
+
+  "terms_sec_assignment_title": "Assignment",
+  "terms_sec_assignment_content": "Jaycom4 reserves the right to assign or transfer any or all rights and obligations under these Terms to any third party.",
+
+  "terms_sec_law_title": "Governing Law and Jurisdiction",
+  "terms_sec_law_content": "These Terms and Conditions and any dispute arising from them are governed by the laws of the Kingdom of Saudi Arabia, and the competent courts in Riyadh shall have jurisdiction.",
 };

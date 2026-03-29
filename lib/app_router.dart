@@ -12,8 +12,9 @@ AppLang _parseLang(String? value) {
     case 'ur':
       return AppLang.ur;
     case 'en':
-    default:
       return AppLang.en;
+    default:
+      return AppLang.ar;
   }
 }
 
@@ -22,18 +23,27 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomePage(),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: HomePage(
+          initialLang: _parseLang(state.uri.queryParameters['lang']),
+          initialSection: state.uri.queryParameters['section'],
+        ),
+      ),
     ),
     GoRoute(
       path: '/terms',
-      builder: (context, state) => TermsPage(
-        l10n: L10n(_parseLang(state.uri.queryParameters['lang'])),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: TermsPage(
+          l10n: L10n(_parseLang(state.uri.queryParameters['lang'])),
+        ),
       ),
     ),
     GoRoute(
       path: '/privacy',
-      builder: (context, state) => PrivacyPage(
-        l10n: L10n(_parseLang(state.uri.queryParameters['lang'])),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: PrivacyPage(
+          l10n: L10n(_parseLang(state.uri.queryParameters['lang'])),
+        ),
       ),
     ),
   ],

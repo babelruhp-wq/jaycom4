@@ -52,7 +52,7 @@ class Jaycom4Site extends StatelessWidget {
       brightness: Brightness.light,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: const Color(0xFFF6F7FB),
-      textTheme: GoogleFonts.notoSansArabicTextTheme(),
+      textTheme: GoogleFonts.ibmPlexSansArabicTextTheme(),
     );
   }
 
