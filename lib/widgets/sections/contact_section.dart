@@ -47,6 +47,12 @@ class _ContactSectionState extends State<ContactSection> {
     );
   }
 
+  String _requiredError(String label) => "$label *";
+  String _minError(String label, int n) =>
+      "$label (${Tr.t(widget.l10n, "minPrefix")} $n)";
+  String _invalidError(String label) =>
+      "$label (${Tr.t(widget.l10n, "invalidValue")})";
+
   Future<void> _submit() async {
     FocusScope.of(context).unfocus();
 
@@ -112,27 +118,31 @@ class _ContactSectionState extends State<ContactSection> {
                     validator: (v) {
                       final s = (v ?? '').trim();
                       if (s.isEmpty) {
-                        return "${Tr.t(l10n, "name")} *";
+                        return _requiredError(Tr.t(l10n, "name"));
                       }
                       if (s.length < 2) {
-                        return "${Tr.t(l10n, "name")} (min 2)";
+                        return _minError(Tr.t(l10n, "name"), 2);
                       }
                       return null;
                     },
                   ),
                   const SizedBox(height: 12),
                   _input(
-                    label: "Email",
+                    label: Tr.t(l10n, "email"),
                     controller: _email,
                     icon: Icons.email_rounded,
                     keyboardType: TextInputType.emailAddress,
                     validator: (v) {
                       final s = (v ?? '').trim();
-                      if (s.isEmpty) return "Email *";
+                      if (s.isEmpty) {
+                        return _requiredError(Tr.t(l10n, "email"));
+                      }
                       final ok = RegExp(
                         r'^[\w\.\-]+@([\w\-]+\.)+[a-zA-Z]{2,}$',
                       ).hasMatch(s);
-                      if (!ok) return "Email (invalid)";
+                      if (!ok) {
+                        return _invalidError(Tr.t(l10n, "email"));
+                      }
                       return null;
                     },
                   ),
@@ -145,10 +155,10 @@ class _ContactSectionState extends State<ContactSection> {
                     validator: (v) {
                       final s = (v ?? '').trim();
                       if (s.isEmpty) {
-                        return "${Tr.t(l10n, "phone")} *";
+                        return _requiredError(Tr.t(l10n, "phone"));
                       }
                       if (!RegExp(r'^[0-9+]{7,16}$').hasMatch(s)) {
-                        return "${Tr.t(l10n, "phone")} (invalid)";
+                        return _invalidError(Tr.t(l10n, "phone"));
                       }
                       return null;
                     },
@@ -162,16 +172,16 @@ class _ContactSectionState extends State<ContactSection> {
                     validator: (v) {
                       final s = (v ?? '').trim();
                       if (s.isEmpty) {
-                        return "${Tr.t(l10n, "message")} *";
+                        return _requiredError(Tr.t(l10n, "message"));
                       }
                       if (s.length < 6) {
-                        return "${Tr.t(l10n, "message")} (min 6)";
+                        return _minError(Tr.t(l10n, "message"), 6);
                       }
                       return null;
                     },
                   ),
                   const SizedBox(height: 16),
-                  const _ContactDetailsPanel(),
+                  _ContactDetailsPanel(l10n: l10n),
                 ],
               )
                   : Row(
@@ -192,10 +202,15 @@ class _ContactSectionState extends State<ContactSection> {
                                 validator: (v) {
                                   final s = (v ?? '').trim();
                                   if (s.isEmpty) {
-                                    return "${Tr.t(l10n, "name")} *";
+                                    return _requiredError(
+                                      Tr.t(l10n, "name"),
+                                    );
                                   }
                                   if (s.length < 2) {
-                                    return "${Tr.t(l10n, "name")} (min 2)";
+                                    return _minError(
+                                      Tr.t(l10n, "name"),
+                                      2,
+                                    );
                                   }
                                   return null;
                                 },
@@ -204,17 +219,26 @@ class _ContactSectionState extends State<ContactSection> {
                             const SizedBox(width: 12),
                             Expanded(
                               child: _input(
-                                label: "Email",
+                                label: Tr.t(l10n, "email"),
                                 controller: _email,
                                 icon: Icons.email_rounded,
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType:
+                                TextInputType.emailAddress,
                                 validator: (v) {
                                   final s = (v ?? '').trim();
-                                  if (s.isEmpty) return "Email *";
+                                  if (s.isEmpty) {
+                                    return _requiredError(
+                                      Tr.t(l10n, "email"),
+                                    );
+                                  }
                                   final ok = RegExp(
                                     r'^[\w\.\-]+@([\w\-]+\.)+[a-zA-Z]{2,}$',
                                   ).hasMatch(s);
-                                  if (!ok) return "Email (invalid)";
+                                  if (!ok) {
+                                    return _invalidError(
+                                      Tr.t(l10n, "email"),
+                                    );
+                                  }
                                   return null;
                                 },
                               ),
@@ -230,10 +254,14 @@ class _ContactSectionState extends State<ContactSection> {
                           validator: (v) {
                             final s = (v ?? '').trim();
                             if (s.isEmpty) {
-                              return "${Tr.t(l10n, "phone")} *";
+                              return _requiredError(
+                                Tr.t(l10n, "phone"),
+                              );
                             }
                             if (!RegExp(r'^[0-9+]{7,16}$').hasMatch(s)) {
-                              return "${Tr.t(l10n, "phone")} (invalid)";
+                              return _invalidError(
+                                Tr.t(l10n, "phone"),
+                              );
                             }
                             return null;
                           },
@@ -247,10 +275,15 @@ class _ContactSectionState extends State<ContactSection> {
                           validator: (v) {
                             final s = (v ?? '').trim();
                             if (s.isEmpty) {
-                              return "${Tr.t(l10n, "message")} *";
+                              return _requiredError(
+                                Tr.t(l10n, "message"),
+                              );
                             }
                             if (s.length < 6) {
-                              return "${Tr.t(l10n, "message")} (min 6)";
+                              return _minError(
+                                Tr.t(l10n, "message"),
+                                6,
+                              );
                             }
                             return null;
                           },
@@ -259,9 +292,9 @@ class _ContactSectionState extends State<ContactSection> {
                     ),
                   ),
                   const SizedBox(width: 18),
-                  const Expanded(
+                  Expanded(
                     flex: 4,
-                    child: _ContactDetailsPanel(),
+                    child: _ContactDetailsPanel(l10n: l10n),
                   ),
                 ],
               ),
@@ -409,30 +442,32 @@ class _Header extends StatelessWidget {
 }
 
 class _ContactDetailsPanel extends StatelessWidget {
-  const _ContactDetailsPanel();
+  final L10n l10n;
+
+  const _ContactDetailsPanel({required this.l10n});
 
   @override
   Widget build(BuildContext context) {
     final items = [
-      const _ContactDetailItem(
+      _ContactDetailItem(
         icon: Icons.email_rounded,
-        title: "Email",
+        title: Tr.t(l10n, "email"),
         value: "support@jaycom4.com",
       ),
-      const _ContactDetailItem(
+      _ContactDetailItem(
         icon: Icons.phone_rounded,
-        title: "Phone",
+        title: Tr.t(l10n, "phone"),
         value: "+966 5X XXX XXXX",
       ),
-      const _ContactDetailItem(
+      _ContactDetailItem(
         icon: Icons.chat_rounded,
-        title: "WhatsApp",
+        title: Tr.t(l10n, "contactWhatsapp"),
         value: "+966 5X XXX XXXX",
       ),
-      const _ContactDetailItem(
+      _ContactDetailItem(
         icon: Icons.location_on_rounded,
-        title: "Address",
-        value: "Riyadh, Saudi Arabia",
+        title: Tr.t(l10n, "contactAddress"),
+        value: Tr.t(l10n, "contactAddressValue"),
       ),
     ];
 

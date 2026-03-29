@@ -50,7 +50,7 @@ class _ServicesSectionState extends State<ServicesSection>
         text: Tr.t(widget.l10n, "s1s"),
         accent: JC.main,
         soft: JC.main.withOpacity(.10),
-        tag: widget.l10n.isAr ? "سريع" : "Fast",
+        tag: Tr.t(widget.l10n, "servicesTagFast"),
       ),
       _SvcData(
         icon: Icons.verified_rounded,
@@ -58,7 +58,7 @@ class _ServicesSectionState extends State<ServicesSection>
         text: Tr.t(widget.l10n, "s2s"),
         accent: const Color(0xFF1F9D6E),
         soft: const Color(0xFFEAFBF4),
-        tag: widget.l10n.isAr ? "موثوق" : "Trusted",
+        tag: Tr.t(widget.l10n, "servicesTagTrusted"),
       ),
       _SvcData(
         icon: Icons.support_agent_rounded,
@@ -66,7 +66,7 @@ class _ServicesSectionState extends State<ServicesSection>
         text: Tr.t(widget.l10n, "s3s"),
         accent: const Color(0xFF2FAE82),
         soft: const Color(0xFFF1FCF7),
-        tag: widget.l10n.isAr ? "دعم" : "Support",
+        tag: Tr.t(widget.l10n, "servicesTagSupport"),
       ),
     ];
 
@@ -356,7 +356,9 @@ class _ServiceCardState extends State<_ServiceCard>
                           ),
                         ),
                         child: Icon(
-                          Icons.arrow_forward_rounded,
+                          Directionality.of(context) == TextDirection.rtl
+                              ? Icons.arrow_back_rounded
+                              : Icons.arrow_forward_rounded,
                           size: 16,
                           color: widget.data.accent,
                         ),

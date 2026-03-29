@@ -7,14 +7,14 @@ import '../localization/strings.dart';
 class TopBar extends StatelessWidget {
   final L10n l10n;
   final bool isMobile;
-  final VoidCallback onToggleLang;
+  final ValueChanged<AppLang> onSelectLang;
   final VoidCallback onHome, onAbout, onServices, onContact, onPrivacy, onTerms;
 
   const TopBar({
     super.key,
     required this.l10n,
     required this.isMobile,
-    required this.onToggleLang,
+    required this.onSelectLang,
     required this.onHome,
     required this.onAbout,
     required this.onServices,
@@ -24,6 +24,57 @@ class TopBar extends StatelessWidget {
   });
 
   static const double _maxW = 1180;
+
+  String _langLabel(AppLang lang) {
+    switch (lang) {
+      case AppLang.ar:
+        return 'العربية';
+      case AppLang.en:
+        return 'English';
+      case AppLang.ur:
+        return 'اردو';
+    }
+  }
+
+  Widget _languageButton(BuildContext context) {
+    return PopupMenuButton<AppLang>(
+      tooltip: '',
+      offset: const Offset(0, 54),
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
+      onSelected: onSelectLang,
+      itemBuilder: (context) => AppLang.values.map((lang) {
+        final isSelected = l10n.lang == lang;
+        return PopupMenuItem<AppLang>(
+          value: lang,
+          child: Row(
+            children: [
+              Icon(
+                isSelected ? Icons.radio_button_checked : Icons.circle_outlined,
+                size: 18,
+                color: isSelected ? JC.main : JC.muted,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                _langLabel(lang),
+                style: TextStyle(
+                  fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
+                  color: JC.title,
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+      child: _PillButton(
+        label: _langLabel(l10n.lang),
+        filled: false,
+        icon: Icons.language_rounded,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +140,7 @@ class TopBar extends StatelessWidget {
                               onTap: onTerms,
                             ),
                             const SizedBox(width: 14),
-                            _PillButton(
-                              label: Tr.t(l10n, "langBtn"),
-                              onTap: onToggleLang,
-                              filled: false,
-                              icon: Icons.language_rounded,
-                            ),
+                            _languageButton(context),
                             const SizedBox(width: 8),
                             _PillButton(
                               label: Tr.t(l10n, "downloadApps"),
@@ -103,12 +149,7 @@ class TopBar extends StatelessWidget {
                               icon: Icons.download_rounded,
                             ),
                           ] else ...[
-                            _PillButton(
-                              label: Tr.t(l10n, "langBtn"),
-                              onTap: onToggleLang,
-                              filled: false,
-                              icon: Icons.language_rounded,
-                            ),
+                            _languageButton(context),
                             const SizedBox(width: 8),
                             _PillButton(
                               label: Tr.t(l10n, "menu"),
@@ -189,34 +230,54 @@ class TopBar extends StatelessWidget {
                       onTap: onPrivacy,
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _PillButton(
-                            label: Tr.t(l10n, "langBtn"),
-                            onTap: () {
-                              Navigator.pop(context);
-                              onToggleLang();
-                            },
-                            filled: false,
-                            icon: Icons.language_rounded,
-                            fullWidth: true,
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF8FCFA),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: JC.border),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Language',
+                            style: TextStyle(
+                              color: JC.title,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 13,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: _PillButton(
-                            label: Tr.t(l10n, "downloadApps"),
-                            onTap: () {
-                              Navigator.pop(context);
-                              onContact();
-                            },
-                            filled: true,
-                            icon: Icons.download_rounded,
-                            fullWidth: true,
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: AppLang.values.map((lang) {
+                              final selected = l10n.lang == lang;
+                              return _ChoiceChipButton(
+                                label: _langLabel(lang),
+                                selected: selected,
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  onSelectLang(lang);
+                                },
+                              );
+                            }).toList(),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    _PillButton(
+                      label: Tr.t(l10n, "downloadApps"),
+                      onTap: () {
+                        Navigator.pop(context);
+                        onContact();
+                      },
+                      filled: true,
+                      icon: Icons.download_rounded,
+                      fullWidth: true,
                     ),
                   ],
                 ),
@@ -416,8 +477,10 @@ class _MobileMenuItemState extends State<_MobileMenuItem> {
               color: JC.title,
             ),
           ),
-          trailing: const Icon(
-            Icons.chevron_right_rounded,
+          trailing: Icon(
+            Directionality.of(context) == TextDirection.rtl
+                ? Icons.chevron_left_rounded
+                : Icons.chevron_right_rounded,
             color: JC.muted,
           ),
           onTap: () {
@@ -430,18 +493,69 @@ class _MobileMenuItemState extends State<_MobileMenuItem> {
   }
 }
 
+class _ChoiceChipButton extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _ChoiceChipButton({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(999),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+        decoration: BoxDecoration(
+          color: selected ? JC.main.withOpacity(.10) : Colors.white,
+          borderRadius: BorderRadius.circular(999),
+          border: Border.all(
+            color: selected ? JC.main.withOpacity(.28) : JC.border,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              selected ? Icons.check_circle_rounded : Icons.circle_outlined,
+              size: 16,
+              color: selected ? JC.mainDark : JC.muted,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: TextStyle(
+                color: JC.title,
+                fontWeight: selected ? FontWeight.w900 : FontWeight.w700,
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _PillButton extends StatefulWidget {
   final String label;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final bool filled;
   final IconData icon;
   final bool fullWidth;
 
   const _PillButton({
+    super.key,
     required this.label,
-    required this.onTap,
     required this.filled,
     required this.icon,
+    this.onTap,
     this.fullWidth = false,
   });
 

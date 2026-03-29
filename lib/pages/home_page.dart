@@ -27,9 +27,9 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _servicesKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
 
-  bool _isAr = false;
+  AppLang _lang = AppLang.en;
 
-  L10n get _l10n => L10n(_isAr ? AppLang.ar : AppLang.en);
+  L10n get _l10n => L10n(_lang);
 
   @override
   void dispose() {
@@ -39,7 +39,17 @@ class _HomePageState extends State<HomePage> {
 
   void _toggleLang() {
     setState(() {
-      _isAr = !_isAr;
+      switch (_lang) {
+        case AppLang.en:
+          _lang = AppLang.ar;
+          break;
+        case AppLang.ar:
+          _lang = AppLang.ur;
+          break;
+        case AppLang.ur:
+          _lang = AppLang.en;
+          break;
+      }
     });
   }
 
@@ -71,73 +81,56 @@ class _HomePageState extends State<HomePage> {
                   child: TopBar(
                     l10n: _l10n,
                     isMobile: isMobile,
-                    onToggleLang: _toggleLang,
+                    onSelectLang: (lang) {
+                      setState(() {
+                        _lang = lang;
+                      });
+                    },
                     onHome: () => _scrollTo(_homeKey),
                     onAbout: () => _scrollTo(_aboutKey),
                     onServices: () => _scrollTo(_servicesKey),
                     onContact: () => _scrollTo(_contactKey),
-                    onPrivacy: () => context.push('/privacy'),
-                    onTerms: () => context.push('/terms'),
-                  )
+                    onPrivacy: () =>
+                        context.push('/privacy?lang=${_lang.name}'),
+                    onTerms: () => context.push('/terms?lang=${_lang.name}'),
+                  ),
                 ),
                 SliverToBoxAdapter(
                   child: Container(
                     key: _homeKey,
-                    child: HeroSection(
-                      l10n: _l10n,
-                      isMobile: isMobile,
-                    ),
+                    child: HeroSection(l10n: _l10n, isMobile: isMobile),
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: HowItWorks(
-                    l10n: _l10n,
-                    isMobile: isMobile,
-                  ),
+                  child: HowItWorks(l10n: _l10n, isMobile: isMobile),
                 ),
                 SliverToBoxAdapter(
                   child: Container(
                     key: _aboutKey,
-                    child: AboutSection(
-                      l10n: _l10n,
-                      isMobile: isMobile,
-                    ),
+                    child: AboutSection(l10n: _l10n, isMobile: isMobile),
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: Container(
                     key: _servicesKey,
-                    child: ServicesSection(
-                      l10n: _l10n,
-                      isMobile: isMobile,
-                    ),
+                    child: ServicesSection(l10n: _l10n, isMobile: isMobile),
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: CtaSection(
-                    l10n: _l10n,
-                    isMobile: isMobile,
-                  ),
+                  child: CtaSection(l10n: _l10n, isMobile: isMobile),
                 ),
                 SliverToBoxAdapter(
                   child: Container(
                     key: _contactKey,
-                    child: ContactSection(
-                      l10n: _l10n,
-                    ),
+                    child: ContactSection(l10n: _l10n),
                   ),
                 ),
-
-                SliverToBoxAdapter(
-                  child: Footer(
-                    l10n: _l10n,
-                  ),
-                ),
+                SliverToBoxAdapter(child: Footer(l10n: _l10n)),
               ],
             ),
             Positioned(
-              right: _l10n.isAr ? null : 16,
-              left: _l10n.isAr ? 16 : null,
+              right: _l10n.isRtl ? null : 16,
+              left: _l10n.isRtl ? 16 : null,
               bottom: 16,
               child: ContactFab(
                 l10n: _l10n,

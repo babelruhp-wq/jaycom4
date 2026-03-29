@@ -1,0 +1,100 @@
+const Map<String, String> urStrings = {
+  "home": "ہوم",
+  "about": "ہمارے بارے میں",
+  "services": "ہماری خدمات",
+  "contact": "رابطہ کریں",
+  "downloadApps": "ایپ ڈاؤن لوڈ کریں",
+  "langBtn": "EN",
+  'menu': 'مینو',
+  'privacy_policy': 'رازداری کی پالیسی',
+  'terms_conditions': 'شرائط و ضوابط',
+
+  "heroTitle": "Jaicom4\nایپ کی آفیشل ویب سائٹ",
+  "heroSubtitle":
+  "Jaicom4 ایپ کے لیے ایک تعارفی ویب سائٹ۔\nنیچے دیے گئے لنکس سے Android اور iOS کے لیے ڈاؤن لوڈ کریں۔",
+  "tag1": "پیشہ ورانہ",
+  "tag2": "آسان",
+  "tag3": "تیز",
+  "btnAndroid": "Android ڈاؤن لوڈ کریں",
+  "btniOS": "iOS ڈاؤن لوڈ کریں",
+
+  "howTitle": "یہ کیسے کام کرتا ہے؟",
+  "howSub": "تمام کارروائیاں ایپ کے اندر ہوتی ہیں۔",
+  "step1t": "ایپ ڈاؤن لوڈ کریں",
+  "step1s": "Android یا iOS",
+  "step2t": "سروس منتخب کریں",
+  "step2s": "پلمبر/بڑھئی/الیکٹریشن/…",
+  "step3t": "رابطہ کریں اور درخواست دیں",
+  "step3s": "تمام کام ایپ کے اندر مکمل ہوتا ہے",
+
+  "profTitle": "پیشوں کی مثالیں",
+  "aboutTitle": "ہمارے بارے میں",
+  "aboutSub":
+  "Jaicom4 آپ کو مطلوبہ سروس تک پیشہ ورانہ انداز میں پہنچانے میں مدد کرتا ہے۔",
+  "bullet1": "یہ صرف ایپ کے لیے ایک تعارفی ویب سائٹ ہے۔",
+  "bullet2": "درخواستیں اور رابطہ ایپ کے اندر ہوتے ہیں۔",
+  "bullet3": "سادہ اور تیز تجربہ۔",
+
+  "servicesTitle": "ہماری خدمات",
+  "servicesSub": "Jaicom4 کی اہم قدر کا مختصر تعارف۔",
+  "s1t": "آسان رسائی",
+  "s1s": "اپنی مطلوبہ سروس جلدی تلاش کریں۔",
+  "s2t": "وضاحت اور اعتماد",
+  "s2s": "واضح معلومات اور پیشہ ورانہ تجربہ۔",
+  "s3t": "سپورٹ",
+  "s3s": "سوالات کے لیے واضح رابطہ ذرائع۔",
+
+  "ctaTitle": "کیا آپ شروع کرنے کے لیے تیار ہیں؟",
+  "ctaSub": "ابھی Android یا iOS کے لیے ایپ ڈاؤن لوڈ کریں۔",
+
+  "contactTitle": "رابطہ کریں",
+  "contactSub": "پیغام بھیجیں، ہم آپ سے رابطہ کریں گے۔",
+  "name": "نام",
+  "phone": "فون نمبر",
+  "message": "آپ کا پیغام",
+  "send": "بھیجیں",
+  "sent": "آپ کا پیغام بھیج دیا گیا ✅",
+
+  "fabContact": "رابطہ",
+  "fabWhatsapp": "واٹس ایپ",
+  "fabSnap": "سنیپ چیٹ",
+  "fabTiktok": "ٹک ٹاک",
+  "fabX": "X",
+
+  "svcHint": "تیز • واضح • قابلِ اعتماد",
+  "footer":
+  "© Jaicom4 — یہ ایک تعارفی ویب سائٹ ہے، تمام کارروائیاں ایپ میں ہوتی ہیں",
+
+  "aboutFastReachTitle": "تیز رسائی",
+  "aboutFastReachSub": "آپ کے قریب خدمات",
+  "aboutTrustedQualityTitle": "قابلِ اعتماد معیار",
+  "aboutTrustedQualitySub": "بہتر انتخاب",
+  "aboutWiderVisionTitle": "وسیع وژن",
+  "aboutWiderVisionSub": "توسیع کے لیے تیار",
+
+  "email": "ای میل",
+  "invalidValue": "غلط",
+  "minPrefix": "کم از کم",
+  "contactWhatsapp": "واٹس ایپ",
+  "contactAddress": "پتہ",
+  "contactAddressValue": "ریاض، سعودی عرب",
+
+  "ctaFastAccess": "تیز رسائی",
+  "ctaTrustedServices": "قابلِ اعتماد خدمات",
+  "ctaBuiltToScale": "توسیع کے لیے تیار",
+  "ctaAvailableNow": "ابھی دستیاب",
+
+  "heroBadge": "تمام خدمات کے لیے ایک مکمل ایپ",
+  "heroHeadlineTop": "آپ کی خدمت\n",
+  "heroHeadlineBottom": "بس ایک کلک کی دوری پر",
+  "heroDescription":
+  "Jaycom4 ڈاؤن لوڈ کریں اور آسانی سے کسی بھی سروس کی درخواست دیں — پلمبنگ، الیکٹریکل، کارپینٹری اور مزید۔",
+  "heroStatsSubtitle": "ایک ایپ — تمام خدمات",
+  "heroStatServices": "خدمات",
+  "heroStatUsers": "صارفین",
+  "heroStatRating": "ریٹنگ",
+
+  "servicesTagFast": "تیز",
+  "servicesTagTrusted": "قابلِ اعتماد",
+  "servicesTagSupport": "سپورٹ",
+};

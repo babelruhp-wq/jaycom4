@@ -186,7 +186,6 @@ class _SectionHeader extends StatelessWidget {
   }
 }
 
-
 class _AccentLine extends AnimatedWidget {
   final AnimationController ctrl;
   const _AccentLine({required this.ctrl}) : super(listenable: ctrl);

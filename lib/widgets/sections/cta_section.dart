@@ -198,15 +198,15 @@ class _CtaSectionState extends State<CtaSection>
           children: [
             _TinyBadge(
               icon: Icons.flash_on_rounded,
-              text: widget.l10n.isAr ? "وصول أسرع" : "Fast access",
+              text: Tr.t(widget.l10n, "ctaFastAccess"),
             ),
             _TinyBadge(
               icon: Icons.verified_rounded,
-              text: widget.l10n.isAr ? "خدمات موثوقة" : "Trusted services",
+              text: Tr.t(widget.l10n, "ctaTrustedServices"),
             ),
             _TinyBadge(
               icon: Icons.public_rounded,
-              text: widget.l10n.isAr ? "جاهز للتوسع" : "Built to scale",
+              text: Tr.t(widget.l10n, "ctaBuiltToScale"),
             ),
           ],
         ),
@@ -273,7 +273,7 @@ class _CtaSectionState extends State<CtaSection>
             ),
             const SizedBox(height: 4),
             Text(
-              widget.l10n.isAr ? "متوفر الآن" : "Available now",
+              Tr.t(widget.l10n, "ctaAvailableNow"),
               style: const TextStyle(
                 color: JC.muted,
                 fontWeight: FontWeight.w700,

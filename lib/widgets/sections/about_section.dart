@@ -288,6 +288,7 @@ class _BulletState extends State<_Bullet> {
     );
   }
 }
+
 class _MiniHighlights extends StatelessWidget {
   final bool isMobile;
   final L10n l10n;
@@ -302,18 +303,18 @@ class _MiniHighlights extends StatelessWidget {
     final items = [
       _MiniItem(
         icon: Icons.location_on_rounded,
-        title: l10n.isAr ? "وصول سريع" : "Fast Reach",
-        subtitle: l10n.isAr ? "خدمات أقرب ليك" : "Nearby services",
+        title: Tr.t(l10n, "aboutFastReachTitle"),
+        subtitle: Tr.t(l10n, "aboutFastReachSub"),
       ),
       _MiniItem(
         icon: Icons.verified_rounded,
-        title: l10n.isAr ? "جودة موثوقة" : "Trusted Quality",
-        subtitle: l10n.isAr ? "اختيار أسهل" : "Better selection",
+        title: Tr.t(l10n, "aboutTrustedQualityTitle"),
+        subtitle: Tr.t(l10n, "aboutTrustedQualitySub"),
       ),
       _MiniItem(
         icon: Icons.language_rounded,
-        title: l10n.isAr ? "رؤية أوسع" : "Wider Vision",
-        subtitle: l10n.isAr ? "جاهز للتوسع" : "Built to scale",
+        title: Tr.t(l10n, "aboutWiderVisionTitle"),
+        subtitle: Tr.t(l10n, "aboutWiderVisionSub"),
       ),
     ];
 
@@ -446,6 +447,7 @@ class _InfoTileState extends State<_InfoTile> {
     );
   }
 }
+
 class _AboutBackgroundDecor extends StatelessWidget {
   const _AboutBackgroundDecor();
 

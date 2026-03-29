@@ -262,9 +262,7 @@ class _HeroSectionState extends State<HeroSection>
               const _PulsingDot(),
               const SizedBox(width: 8),
               Text(
-                widget.l10n.isAr
-                    ? "تطبيق متكامل للخدمات"
-                    : "All-in-one services app",
+                Tr.t(widget.l10n, "heroBadge"),
                 style: TextStyle(
                   color: JC.main.withOpacity(.95),
                   fontWeight: FontWeight.w800,
@@ -281,15 +279,14 @@ class _HeroSectionState extends State<HeroSection>
               fontSize: titleSize,
               height: 1.08,
               fontWeight: FontWeight.w900,
-              fontFamily: 'Cairo',
             ),
             children: [
               TextSpan(
-                text: widget.l10n.isAr ? "خدمتك\n" : "Your service\n",
+                text: Tr.t(widget.l10n, "heroHeadlineTop"),
                 style: const TextStyle(color: Colors.white),
               ),
               TextSpan(
-                text: widget.l10n.isAr ? "على بُعد نقرة" : "one tap away",
+                text: Tr.t(widget.l10n, "heroHeadlineBottom"),
                 style: const TextStyle(color: JC.main),
               ),
             ],
@@ -299,9 +296,7 @@ class _HeroSectionState extends State<HeroSection>
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 440),
           child: Text(
-            widget.l10n.isAr
-                ? "حمّل Jaycom4 واطلب أي خدمة بسهولة — سباكة، كهرباء، نجارة وأكثر."
-                : "Download Jaycom4 and request any service easily — plumbing, electrical, carpentry & more.",
+            Tr.t(widget.l10n, "heroDescription"),
             style: TextStyle(
               color: Colors.white.withOpacity(.65),
               fontSize: 15,
@@ -385,9 +380,7 @@ class _HeroSectionState extends State<HeroSection>
           ),
           const SizedBox(height: 4),
           Text(
-            widget.l10n.isAr
-                ? "تطبيق واحد — كل الخدمات"
-                : "One app — all services",
+            Tr.t(widget.l10n, "heroStatsSubtitle"),
             style: TextStyle(
               color: Colors.white.withOpacity(.5),
               fontWeight: FontWeight.w700,
@@ -403,20 +396,20 @@ class _HeroSectionState extends State<HeroSection>
                 icon: Icons.flash_on_rounded,
                 end: 30,
                 suffix: "+",
-                label: widget.l10n.isAr ? "خدمة" : "Services",
+                label: Tr.t(widget.l10n, "heroStatServices"),
               ),
               _AnimatedStat(
                 icon: Icons.people_rounded,
                 end: 1000,
                 suffix: "+",
-                label: widget.l10n.isAr ? "مستخدم" : "Users",
+                label: Tr.t(widget.l10n, "heroStatUsers"),
                 abbreviate: true,
               ),
               _AnimatedStat(
                 icon: Icons.star_rounded,
                 end: 48,
                 suffix: "",
-                label: widget.l10n.isAr ? "تقييم" : "Rating",
+                label: Tr.t(widget.l10n, "heroStatRating"),
                 divideBy: 10,
               ),
             ],

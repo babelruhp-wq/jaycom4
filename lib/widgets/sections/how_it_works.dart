@@ -345,12 +345,12 @@ class _HowCardState extends State<_HowCard> {
                   border: Border.all(color: JC.main.withOpacity(.16)),
                   boxShadow: _hover
                       ? [
-                          BoxShadow(
-                            blurRadius: 16,
-                            offset: const Offset(0, 6),
-                            color: JC.main.withOpacity(.10),
-                          ),
-                        ]
+                    BoxShadow(
+                      blurRadius: 16,
+                      offset: const Offset(0, 6),
+                      color: JC.main.withOpacity(.10),
+                    ),
+                  ]
                       : null,
                 ),
                 child: Icon(widget.item.icon, color: JC.mainDark, size: 25),
