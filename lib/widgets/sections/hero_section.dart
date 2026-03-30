@@ -118,6 +118,7 @@ class _HeroSectionState extends State<HeroSection>
       child: Stack(
         children: [
           Positioned.fill(child: CustomPaint(painter: _GlowPainter())),
+          Positioned.fill(child: CustomPaint(painter: _HeroGridPainter())),
 
           Positioned(
             right: widget.isMobile ? -globeSize * 0.35 : -globeSize * 0.05,
@@ -887,4 +888,23 @@ class _HeroAnimBuilder extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) => builder(context, null);
+}
+
+class _HeroGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = JC.main.withOpacity(.04)
+      ..strokeWidth = 0.5;
+    const spacing = 60.0;
+    for (double x = 0; x < size.width; x += spacing) {
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+    }
+    for (double y = 0; y < size.height; y += spacing) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

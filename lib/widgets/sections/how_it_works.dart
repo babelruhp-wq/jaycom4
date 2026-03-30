@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import '../../localization/app_lang.dart';
 import '../../localization/strings.dart';
-import 'section_shell.dart';
 
 class HowItWorks extends StatefulWidget {
   final L10n l10n;
@@ -39,66 +38,113 @@ class _HowItWorksState extends State<HowItWorks>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = widget.l10n;
+    final isMobile = widget.isMobile;
+
     final items = <_HowItem>[
       _HowItem(
         Icons.download_rounded,
-        Tr.t(widget.l10n, "step1t"),
-        Tr.t(widget.l10n, "step1s"),
+        Tr.t(l10n, "step1t"),
+        Tr.t(l10n, "step1s"),
         "01",
       ),
       _HowItem(
         Icons.category_rounded,
-        Tr.t(widget.l10n, "step2t"),
-        Tr.t(widget.l10n, "step2s"),
+        Tr.t(l10n, "step2t"),
+        Tr.t(l10n, "step2s"),
         "02",
       ),
       _HowItem(
         Icons.support_agent_rounded,
-        Tr.t(widget.l10n, "step3t"),
-        Tr.t(widget.l10n, "step3s"),
+        Tr.t(l10n, "step3t"),
+        Tr.t(l10n, "step3s"),
         "03",
       ),
     ];
 
-    return SectionShell(
-      title: Tr.t(widget.l10n, "howTitle"),
-      subtitle: Tr.t(widget.l10n, "howSub"),
-      child: Container(
-        padding: EdgeInsets.all(widget.isMobile ? 16 : 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: JC.border),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 30,
-              offset: const Offset(0, 12),
-              color: JC.dark.withOpacity(.05),
-            ),
-          ],
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [JC.dark, JC.dark2, Color(0xFF0D3326)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0.0, 0.6, 1.0],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(26),
-          child: Stack(
-            children: [
-              const Positioned.fill(child: _HowDecorBackground()),
-              widget.isMobile ? _mobileLayout(items) : _desktopLayout(items),
-            ],
+      ),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: CustomPaint(painter: _GridPainter()),
           ),
-        ),
+          Positioned(
+            top: -60,
+            right: isMobile ? -40 : 80,
+            child: Container(
+              width: 220,
+              height: 220,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    JC.main.withOpacity(.10),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -40,
+            left: isMobile ? -30 : 60,
+            child: Container(
+              width: 160,
+              height: 160,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    JC.main.withOpacity(.07),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1180),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 18 : 24,
+                  vertical: isMobile ? 54 : 72,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _SectionHeader(l10n: l10n, isMobile: isMobile),
+                    SizedBox(height: isMobile ? 30 : 40),
+                    if (!isMobile) _desktopLayout(items),
+                    if (isMobile) _mobileLayout(items),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _desktopLayout(List<_HowItem> items) {
     return SizedBox(
-      height: 285,
+      height: 310,
       child: Stack(
         children: [
           Positioned(
-            top: 64,
-            left: 64,
-            right: 64,
+            top: 72,
+            left: 80,
+            right: 80,
             child: _ConnectingLine(ctrl: _ctrl),
           ),
           Row(
@@ -115,8 +161,8 @@ class _HowItWorksState extends State<HowItWorks>
               return Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: i == 0 ? 0 : 8,
-                    right: i == items.length - 1 ? 0 : 8,
+                    left: i == 0 ? 0 : 10,
+                    right: i == items.length - 1 ? 0 : 10,
                   ),
                   child: FadeTransition(
                     opacity: anim,
@@ -149,7 +195,7 @@ class _HowItWorksState extends State<HowItWorks>
         );
 
         return Padding(
-          padding: const EdgeInsets.only(bottom: 14),
+          padding: const EdgeInsets.only(bottom: 16),
           child: FadeTransition(
             opacity: anim,
             child: SlideTransition(
@@ -166,6 +212,71 @@ class _HowItWorksState extends State<HowItWorks>
   }
 }
 
+/* ─── Section Header ─── */
+class _SectionHeader extends StatelessWidget {
+  final L10n l10n;
+  final bool isMobile;
+
+  const _SectionHeader({required this.l10n, required this.isMobile});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          decoration: BoxDecoration(
+            color: JC.main.withOpacity(.12),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: JC.main.withOpacity(.22)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.route_rounded,
+                  size: 14, color: JC.main.withOpacity(.9)),
+              const SizedBox(width: 8),
+              Text(
+                Tr.t(l10n, "howTitle"),
+                style: TextStyle(
+                  color: JC.main.withOpacity(.95),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 12.5,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          Tr.t(l10n, "howTitle"),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w900,
+            fontSize: isMobile ? 26 : 32,
+            height: 1.2,
+          ),
+        ),
+        const SizedBox(height: 10),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: Text(
+            Tr.t(l10n, "howSub"),
+            style: TextStyle(
+              color: Colors.white.withOpacity(.55),
+              fontWeight: FontWeight.w600,
+              fontSize: isMobile ? 14 : 15,
+              height: 1.7,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/* ─── Data ─── */
 class _HowItem {
   final IconData icon;
   final String title;
@@ -175,6 +286,7 @@ class _HowItem {
   const _HowItem(this.icon, this.title, this.text, this.number);
 }
 
+/* ─── Connecting Line ─── */
 class _ConnectingLine extends AnimatedWidget {
   final AnimationController ctrl;
 
@@ -198,16 +310,16 @@ class _LinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final base = Paint()
-      ..color = color.withOpacity(.08)
+      ..color = Colors.white.withOpacity(.06)
       ..strokeWidth = 2
       ..strokeCap = StrokeCap.round;
 
     final active = Paint()
       ..shader = LinearGradient(
         colors: [
-          color.withOpacity(.20),
-          color.withOpacity(.45),
-          color.withOpacity(.18),
+          color.withOpacity(.30),
+          color.withOpacity(.60),
+          color.withOpacity(.25),
         ],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
       ..strokeWidth = 3
@@ -232,7 +344,7 @@ class _LinePainter extends CustomPainter {
       canvas.drawCircle(
         Offset(x, size.height / 2),
         2,
-        Paint()..color = color.withOpacity(.12),
+        Paint()..color = color.withOpacity(.18),
       );
     }
 
@@ -243,11 +355,11 @@ class _LinePainter extends CustomPainter {
         head,
         8,
         Paint()
-          ..color = color.withOpacity(.14)
+          ..color = color.withOpacity(.20)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8),
       );
 
-      canvas.drawCircle(head, 4.2, Paint()..color = color.withOpacity(.55));
+      canvas.drawCircle(head, 4.2, Paint()..color = color.withOpacity(.65));
     }
   }
 
@@ -257,6 +369,7 @@ class _LinePainter extends CustomPainter {
   }
 }
 
+/* ─── Card ─── */
 class _HowCard extends StatefulWidget {
   final _HowItem item;
   final bool isMobile;
@@ -286,39 +399,165 @@ class _HowCardState extends State<_HowCard> {
     final enableHover = _enableHover(context);
     final r = BorderRadius.circular(24);
 
-    final child = AnimatedContainer(
+    final child = widget.isMobile ? _mobileCard(r) : _desktopCard(r);
+
+    if (!enableHover) return child;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => _safeSetState(() => _hover = true),
+      onExit: (_) => _safeSetState(() => _hover = false),
+      child: child,
+    );
+  }
+
+  Widget _mobileCard(BorderRadius r) {
+    return AnimatedContainer(
       duration: const Duration(milliseconds: 220),
-      transform: Matrix4.identity()..translate(0.0, _hover ? -4.0 : 0.0),
-      height: widget.isMobile ? null : 245,
-      padding: const EdgeInsets.all(22),
+      width: double.infinity,
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.95),
         borderRadius: r,
+        gradient: LinearGradient(
+          colors: [
+            Colors.white.withOpacity(.08),
+            Colors.white.withOpacity(.03),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        border: Border.all(color: Colors.white.withOpacity(.08)),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 24,
+            offset: const Offset(0, 14),
+            color: Colors.black.withOpacity(.18),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // Icon + number
+          Column(
+            children: [
+              Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: LinearGradient(
+                    colors: [
+                      JC.main.withOpacity(.20),
+                      JC.main.withOpacity(.08),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  border: Border.all(color: JC.main.withOpacity(.22)),
+                ),
+                child: Icon(widget.item.icon, color: JC.main, size: 24),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(.06),
+                  borderRadius: BorderRadius.circular(999),
+                  border: Border.all(color: Colors.white.withOpacity(.10)),
+                ),
+                child: Text(
+                  widget.item.number,
+                  style: TextStyle(
+                    color: JC.main.withOpacity(.8),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(width: 18),
+          // Text content
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.item.title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 17,
+                    height: 1.3,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  widget.item.text,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(.50),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13.5,
+                    height: 1.65,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _desktopCard(BorderRadius r) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 220),
+      transform: Matrix4.identity()..translate(0.0, _hover ? -5.0 : 0.0),
+      height: 280,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        borderRadius: r,
+        gradient: LinearGradient(
+          colors: [
+            Colors.white.withOpacity(_hover ? .12 : .08),
+            Colors.white.withOpacity(_hover ? .06 : .03),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         border: Border.all(
-          color: _hover ? JC.main.withOpacity(.22) : JC.border,
+          color: _hover
+              ? JC.main.withOpacity(.30)
+              : Colors.white.withOpacity(.08),
         ),
         boxShadow: [
           BoxShadow(
-            blurRadius: _hover ? 34 : 24,
-            offset: const Offset(0, 12),
-            color: (_hover ? JC.main : JC.dark).withOpacity(_hover ? .09 : .05),
+            blurRadius: _hover ? 40 : 24,
+            offset: const Offset(0, 14),
+            color: Colors.black.withOpacity(_hover ? .25 : .18),
           ),
+          if (_hover)
+            BoxShadow(
+              blurRadius: 30,
+              offset: const Offset(0, 8),
+              color: JC.main.withOpacity(.08),
+            ),
         ],
       ),
       child: Stack(
         children: [
           Positioned(
-            top: -8,
-            right: -6,
+            top: -10,
+            right: -4,
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 220),
-              opacity: _hover ? 1 : .8,
+              opacity: _hover ? .15 : .08,
               child: Text(
                 widget.item.number,
-                style: TextStyle(
-                  fontSize: 42,
+                style: const TextStyle(
+                  fontSize: 56,
                   fontWeight: FontWeight.w900,
-                  color: JC.main.withOpacity(.10),
+                  color: JC.main,
                   height: 1,
                 ),
               ),
@@ -330,67 +569,71 @@ class _HowCardState extends State<_HowCard> {
             children: [
               AnimatedContainer(
                 duration: const Duration(milliseconds: 220),
-                width: 54,
-                height: 54,
+                width: 58,
+                height: 58,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
                   gradient: LinearGradient(
                     colors: [
-                      JC.main.withOpacity(.18),
-                      JC.main.withOpacity(.08),
+                      JC.main.withOpacity(_hover ? .28 : .20),
+                      JC.main.withOpacity(_hover ? .14 : .08),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  border: Border.all(color: JC.main.withOpacity(.16)),
+                  border: Border.all(
+                    color: JC.main.withOpacity(_hover ? .35 : .22),
+                  ),
                   boxShadow: _hover
                       ? [
                     BoxShadow(
-                      blurRadius: 16,
-                      offset: const Offset(0, 6),
-                      color: JC.main.withOpacity(.10),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
+                      color: JC.main.withOpacity(.15),
                     ),
                   ]
                       : null,
                 ),
-                child: Icon(widget.item.icon, color: JC.mainDark, size: 25),
+                child: Icon(widget.item.icon, color: JC.main, size: 26),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 20),
               Text(
                 widget.item.title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  color: JC.title,
+                  color: Colors.white,
                   fontWeight: FontWeight.w900,
-                  fontSize: 17,
-                  height: 1.25,
+                  fontSize: 18,
+                  height: 1.3,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Text(
                 widget.item.text,
-                style: const TextStyle(
-                  color: JC.muted,
-                  fontWeight: FontWeight.w700,
+                style: TextStyle(
+                  color: Colors.white.withOpacity(.50),
+                  fontWeight: FontWeight.w600,
                   fontSize: 14,
                   height: 1.75,
                 ),
               ),
-              const SizedBox(height: 18),
+              const Spacer(),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 220),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
+                  horizontal: 14,
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
                   color: _hover
-                      ? JC.main.withOpacity(.10)
-                      : const Color(0xFFF7FCF9),
+                      ? JC.main.withOpacity(.14)
+                      : Colors.white.withOpacity(.06),
                   borderRadius: BorderRadius.circular(999),
                   border: Border.all(
-                    color: _hover ? JC.main.withOpacity(.18) : JC.border,
+                    color: _hover
+                        ? JC.main.withOpacity(.28)
+                        : Colors.white.withOpacity(.10),
                   ),
                 ),
                 child: Row(
@@ -399,13 +642,14 @@ class _HowCardState extends State<_HowCard> {
                     Icon(
                       Icons.arrow_forward_rounded,
                       size: 16,
-                      color: JC.mainDark,
+                      color: _hover ? JC.main : Colors.white.withOpacity(.5),
                     ),
                     const SizedBox(width: 6),
                     Text(
                       widget.item.number,
-                      style: const TextStyle(
-                        color: JC.title,
+                      style: TextStyle(
+                        color:
+                        _hover ? JC.main : Colors.white.withOpacity(.6),
                         fontWeight: FontWeight.w900,
                         fontSize: 12.5,
                       ),
@@ -418,102 +662,22 @@ class _HowCardState extends State<_HowCard> {
         ],
       ),
     );
-
-    if (!enableHover) return child;
-
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => _safeSetState(() => _hover = true),
-      onExit: (_) => _safeSetState(() => _hover = false),
-      child: child,
-    );
   }
 }
 
-class _HowDecorBackground extends StatelessWidget {
-  const _HowDecorBackground();
-
-  @override
-  Widget build(BuildContext context) {
-    return IgnorePointer(
-      child: Stack(
-        children: [
-          Positioned(
-            top: -34,
-            right: -20,
-            child: Container(
-              width: 160,
-              height: 160,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    JC.main.withOpacity(.08),
-                    JC.main.withOpacity(.03),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -28,
-            left: -18,
-            child: Container(
-              width: 110,
-              height: 110,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [JC.main.withOpacity(.06), Colors.transparent],
-                ),
-              ),
-            ),
-          ),
-          Positioned.fill(child: CustomPaint(painter: _HowDecorPainter())),
-        ],
-      ),
-    );
-  }
-}
-
-class _HowDecorPainter extends CustomPainter {
+/* ─── Grid Background ─── */
+class _GridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final p1 = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
-      ..color = JC.main.withOpacity(.06);
-
-    final p2 = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
-      ..color = JC.main.withOpacity(.04);
-
-    final rect1 = Rect.fromCenter(
-      center: Offset(size.width * .88, size.height * .18),
-      width: 170,
-      height: 170,
-    );
-
-    final rect2 = Rect.fromCenter(
-      center: Offset(size.width * .12, size.height * .84),
-      width: 110,
-      height: 110,
-    );
-
-    canvas.drawArc(rect1, .35, 4.0, false, p1);
-    canvas.drawArc(rect1.inflate(16), 1.0, 2.6, false, p2);
-    canvas.drawArc(rect2, -.25, 3.3, false, p2);
-
-    for (int i = 0; i < 4; i++) {
-      final dx = size.width * .72 + (i * 16);
-      final dy = size.height * .20 + (i * 10);
-      canvas.drawCircle(
-        Offset(dx, dy),
-        2.0,
-        Paint()..color = JC.main.withOpacity(.15),
-      );
+    final paint = Paint()
+      ..color = JC.main.withOpacity(.04)
+      ..strokeWidth = 0.5;
+    const spacing = 60.0;
+    for (double x = 0; x < size.width; x += spacing) {
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+    }
+    for (double y = 0; y < size.height; y += spacing) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
   }
 

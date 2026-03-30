@@ -21,6 +21,7 @@ class SiteShellPage extends StatelessWidget {
     return Directionality(
       textDirection: l10n.dir,
       child: Scaffold(
+        backgroundColor: const Color(0xFF16A34A),
         body: Column(
           children: [
             TopBar(

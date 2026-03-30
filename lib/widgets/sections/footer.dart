@@ -52,6 +52,9 @@ class _FooterState extends State<Footer> with SingleTickerProviderStateMixin {
                   painter: _FooterBackgroundPainter(_controller.value),
                 ),
               ),
+              Positioned.fill(
+                child: CustomPaint(painter: _FooterGridPainter()),
+              ),
               Column(
                 children: [
                   Container(
@@ -264,29 +267,29 @@ class _FooterBackgroundPainter extends CustomPainter {
 
     final glowLeft = Paint()
       ..shader =
-          RadialGradient(
-            colors: [
-              JC.main.withOpacity(.08),
-              JC.main.withOpacity(.03),
-              Colors.transparent,
-            ],
-          ).createShader(
-            Rect.fromCircle(
-              center: Offset(size.width * .15, size.height * .15),
-              radius: 180,
-            ),
-          );
+      RadialGradient(
+        colors: [
+          JC.main.withOpacity(.08),
+          JC.main.withOpacity(.03),
+          Colors.transparent,
+        ],
+      ).createShader(
+        Rect.fromCircle(
+          center: Offset(size.width * .15, size.height * .15),
+          radius: 180,
+        ),
+      );
 
     final glowRight = Paint()
       ..shader =
-          RadialGradient(
-            colors: [JC.main.withOpacity(.07), Colors.transparent],
-          ).createShader(
-            Rect.fromCircle(
-              center: Offset(size.width * .88, size.height * .72),
-              radius: 220,
-            ),
-          );
+      RadialGradient(
+        colors: [JC.main.withOpacity(.07), Colors.transparent],
+      ).createShader(
+        Rect.fromCircle(
+          center: Offset(size.width * .88, size.height * .72),
+          radius: 220,
+        ),
+      );
 
     canvas.drawRect(rect, glowLeft);
     canvas.drawRect(rect, glowRight);
@@ -349,4 +352,23 @@ class _FooterBackgroundPainter extends CustomPainter {
   bool shouldRepaint(covariant _FooterBackgroundPainter oldDelegate) {
     return oldDelegate.progress != progress;
   }
+}
+
+class _FooterGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = JC.main.withOpacity(.04)
+      ..strokeWidth = 0.5;
+    const spacing = 60.0;
+    for (double x = 0; x < size.width; x += spacing) {
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+    }
+    for (double y = 0; y < size.height; y += spacing) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
